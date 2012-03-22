@@ -207,7 +207,7 @@ sub recursive_update {
             $if_not_submitted );
     }
 
-    # $self->_delete_empty_auto_increment($object);
+    _delete_empty_auto_increment($object);
     # don't allow insert to recurse to related objects
     # do the recursion ourselves
     # $object->{_rel_in_storage} = 1;
@@ -490,7 +490,7 @@ sub get_m2m_source {
 }
 
 sub _delete_empty_auto_increment {
-    my ( $self, $object ) = @_;
+    my ( $object ) = @_;
     for my $col ( keys %{ $object->{_column_data} } ) {
         if ($object->result_source->column_info($col)->{is_auto_increment}
             and ( !defined $object->{_column_data}{$col}
